@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import toast from 'react-hot-toast';
 import { Trash2, Receipt } from 'lucide-react';
 import { format } from 'date-fns';
@@ -19,7 +19,7 @@ export default function ExpenseList({ expenses, currentUser, onDelete }) {
     e.stopPropagation();
     if (!window.confirm('Delete this expense?')) return;
     try {
-      await axios.delete(`/api/expenses/${expenseId}`);
+      await api.delete(`/api/expenses/${expenseId}`);
       onDelete(expenseId);
       toast.success('Expense deleted');
     } catch { toast.error('Failed to delete'); }

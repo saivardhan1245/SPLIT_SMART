@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { ArrowLeft, TrendingUp, Award, AlertCircle, BarChart2 } from 'lucide-react';
 
@@ -22,8 +22,8 @@ export default function InsightsPage() {
     const fetchData = async () => {
       try {
         const [insightsRes, groupRes] = await Promise.all([
-          axios.get(`/api/insights/group/${id}`),
-          axios.get(`/api/groups/${id}`),
+          api.get(`/api/insights/group/${id}`),
+          api.get(`/api/groups/${id}`),
         ]);
         setInsights(insightsRes.data);
         setGroup(groupRes.data);

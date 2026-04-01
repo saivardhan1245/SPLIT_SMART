@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 import { Plus, Users, Trash2, ArrowRight, TrendingUp, Wallet, Clock } from 'lucide-react';
@@ -25,7 +25,7 @@ export default function DashboardPage() {
 
   const fetchGroups = async () => {
     try {
-      const { data } = await axios.get('/api/groups');
+      const { data } = await api.get('/api/groups');
       setGroups(data);
     } catch { toast.error('Failed to load groups'); }
     finally { setLoading(false); }
@@ -35,7 +35,7 @@ export default function DashboardPage() {
     e.stopPropagation();
     if (!window.confirm('Delete this group?')) return;
     try {
-      await axios.delete(`/api/groups/${groupId}`);
+      await api.delete(`/api/groups/${groupId}`);
       setGroups((prev) => prev.filter((g) => g._id !== groupId));
       toast.success('Group deleted');
     } catch { toast.error('Failed to delete group'); }

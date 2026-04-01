@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { X, Zap, ChevronDown, Info } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
@@ -58,7 +58,7 @@ export default function AddExpenseModal({ groupId, members, currency, onClose, o
     if (type === 'smart' && form.amount) {
       setLoadingSmartSplit(true);
       try {
-        const { data } = await axios.get(`/api/expenses/smart-split/${groupId}?amount=${form.amount}`);
+        const { data } = await api.get(`/api/expenses/smart-split/${groupId}?amount=${form.amount}`);
         setSmartSuggestions(data);
         setSplits(data.map((s) => ({
           user: s.user._id,
@@ -92,7 +92,7 @@ export default function AddExpenseModal({ groupId, members, currency, onClose, o
         settled: s.user === user._id,
       }));
 
-      const { data } = await axios.post('/api/expenses', {
+      const { data } = await api.post('/api/expenses', {
         group: groupId,
         description: form.description,
         amount: parseFloat(form.amount),

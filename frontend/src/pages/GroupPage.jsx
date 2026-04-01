@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
@@ -61,8 +61,8 @@ export default function GroupPage() {
   const fetchAll = async () => {
     try {
       const [groupRes, expensesRes] = await Promise.all([
-        axios.get(`/api/groups/${id}`),
-        axios.get(`/api/expenses/group/${id}`),
+        api.get(`/api/groups/${id}`),
+        api.get(`/api/expenses/group/${id}`),
       ]);
       setGroup(groupRes.data);
       setExpenses(expensesRes.data);
@@ -73,14 +73,14 @@ export default function GroupPage() {
 
   const fetchBalances = async () => {
     try {
-      const { data } = await axios.get(`/api/groups/${id}/balances`);
+      const { data } = await api.get(`/api/groups/${id}/balances`);
       setBalances(data);
     } catch { }
   };
 
   const handleSettle = async (transaction) => {
     try {
-      await axios.post('/api/settlements', {
+      await api.post('/api/settlements', {
         group: id, to: transaction.to._id, amount: transaction.amount,
       });
       toast.success('Settlement recorded!');

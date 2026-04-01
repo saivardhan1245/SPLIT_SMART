@@ -12,7 +12,8 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (user) {
-      const newSocket = io('http://localhost:5000', {
+      const socketUrl = process.env.REACT_APP_API_URL;
+      const newSocket = io(socketUrl, {
         auth: { token: localStorage.getItem('token') },
       });
       setSocket(newSocket);

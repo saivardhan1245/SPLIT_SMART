@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { X, Plus, UserPlus, Trash2 } from 'lucide-react';
 
 const CATEGORIES = [
@@ -27,7 +27,7 @@ export default function CreateGroupModal({ onClose, onCreated }) {
     setError('');
     try {
       const emails = memberEmails.filter((e) => e.trim() !== '');
-      const { data } = await axios.post('/api/groups', { ...form, memberEmails: emails });
+      const { data } = await api.post('/api/groups', { ...form, memberEmails: emails });
       onCreated(data);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to create group');

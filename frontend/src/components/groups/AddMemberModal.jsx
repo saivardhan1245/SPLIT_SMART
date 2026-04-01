@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { X, UserPlus } from 'lucide-react';
 
 export default function AddMemberModal({ groupId, onClose, onAdded }) {
@@ -13,7 +13,7 @@ export default function AddMemberModal({ groupId, onClose, onAdded }) {
     setLoading(true);
     setError('');
     try {
-      const { data } = await axios.post(`/api/groups/${groupId}/members`, { email });
+      const { data } = await api.post(`/api/groups/${groupId}/members`, { email });
       onAdded(data);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to add member');
