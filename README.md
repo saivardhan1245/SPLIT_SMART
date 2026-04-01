@@ -1,5 +1,11 @@
 # ⚡ SplitSmart — Smart Expense Splitting App
 
+🚀 **Live Demo:** [Click here to try SplitSmart](https://split-smart-m97g.vercel.app/login)  
+📦 **Backend API:** https://split-smart-1.onrender.com  
+
+> ⚠️ Note: Backend is hosted on Render free tier, so first load may take ~30–60 seconds
+
+
 A full-stack MERN application to track, split, and settle group expenses with AI-powered smart features.
 
 ---
